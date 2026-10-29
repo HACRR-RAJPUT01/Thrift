@@ -1,0 +1,6 @@
+{
+  "name": "Thrift & Style - Pre-Loved. Re-Styled. Re-Worn.",
+  "description": "Student-led online thrift fashion brand featuring curated vintage finds, editorial catalog, honest condition grading, 3D garment showcase, and transparent pricing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

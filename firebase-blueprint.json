@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile document stored under users/{userId}",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 256 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "photoURL": { "type": "string", "maxLength": 512 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order placed in demo checkout stored under orders/{orderId}",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "customerName": { "type": "string", "maxLength": 100 },
+        "customerEmail": { "type": "string", "maxLength": 256 },
+        "shippingAddress": { "type": "string", "maxLength": 500 },
+        "paymentMethod": { "type": "string", "enum": ["upi", "card", "netbanking", "cod"] },
+        "subtotal": { "type": "number" },
+        "shippingFee": { "type": "number" },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["placed", "processing", "shipped", "delivered"] },
+        "itemCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "customerName", "shippingAddress", "paymentMethod", "total", "status"]
+    },
+    "WishlistItem": {
+      "title": "WishlistItem",
+      "description": "User wishlist entry stored under wishlists/{wishlistId}",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "productId": { "type": "string", "maxLength": 64 },
+        "productName": { "type": "string", "maxLength": 128 },
+        "price": { "type": "number" },
+        "addedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "productId"]
+    },
+    "Newsletter": {
+      "title": "Newsletter",
+      "description": "Newsletter subscriber document stored under newsletter/{subscriberId}",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 256 },
+        "subscribedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile data accessible strictly by the profile owner"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Order records created and listed only by the purchasing user"
+    },
+    "/wishlists/{wishlistId}": {
+      "schema": "WishlistItem",
+      "description": "Wishlist entries managed by the respective user"
+    },
+    "/newsletter/{subscriberId}": {
+      "schema": "Newsletter",
+      "description": "Public subscription for drop alerts and newsletter"
+    }
+  }
+}
